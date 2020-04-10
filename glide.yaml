@@ -1,0 +1,28 @@
+package: github.com/PedPet
+import:
+- package: github.com/go-kit/kit
+  subpackages:
+  - endpoint
+  - log
+  - log/level
+  - metrics
+  - metrics/prometheus
+  - tracing/opentracing
+  - transport/http
+- package: github.com/go-sql-driver/mysql
+- package: github.com/gorilla/handlers
+- package: github.com/gorilla/mux
+- package: github.com/lightstep/lightstep-tracer-go
+- package: github.com/oklog/oklog
+  subpackages:
+  - pkg/group
+- package: github.com/opentracing/opentracing-go
+- package: github.com/openzipkin/zipkin-go-opentracing
+- package: github.com/pkg/errors
+- package: github.com/prometheus/client_golang
+  subpackages:
+  - prometheus
+  - prometheus/promhttp
+- package: sourcegraph.com/sourcegraph/appdash
+  subpackages:
+  - opentracing
