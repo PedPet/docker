@@ -1,20 +1,68 @@
 version: "3.0"
 
 services:
-    front-end:
-        build:
-            context: ./front-end
-            dockerfile: ./deployments/Dockerfile-dev
-        volumes:
-            - ./front-end/:/app/
-        ports:
-            - 3000:3000
-        stdin_open: true
+  front-end:
+    build:
+      context: ./front-end
+      dockerfile: ./deployments/Dockerfile-dev
+    volumes:
+      - ./front-end/:/app/
+    ports:
+      - 3000:3000
+    networks:
+      - frontend
+    stdin_open: true
 
+  proto:
+    build:
+      context: ./proto
+      dockerfile: ./deployments/Dockerfile
+    volumes:
+      - ./proto/:/app/
 
-    login:
-        build:
-            context: ./login
-            dockerfile: ./deployments/Dockerfile-dev
-        volumes:
-            - ./login/:/app/
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: ./deployments/Dockerfile-dev
+    volumes:
+      - ./api-gateway/:/app/
+    ports:
+      - 443:443
+    networks:
+      - backend-services
+      - frontend
+
+  user:
+    build:
+      context: ./user
+      dockerfile: ./deployments/Dockerfile-dev
+    volumes:
+      - ./user/:/app/
+    ports:
+      - 8080:8080
+    networks:
+      - backend-services
+      - user-db
+    environment:
+      - PORT=8080
+
+  user-db:
+    image: mysql:8.0
+    ports:
+      - 3307:3306
+    volumes:
+      - user-db:/var/lib/mysql
+    networks:
+      - user-db
+    environment:
+      - "MYSQL_ROOT_PASSWORD=Marthawinter1"
+      - "MYSQL_DATABASE=pedpet"
+      - "MYSQL_ROOT_HOST=%"
+
+volumes:
+  user-db:
+
+networks:
+  backend-services:
+  user-db:
+  frontend:
