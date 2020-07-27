@@ -44,6 +44,9 @@ on_project_stop: docker-compose down
 
 windows:
     - docker:
+    - front-end:
+         - cd front-end
+         - docker-compose logs -f front-end
     - api gateway: 
         layout: even-vertical
         panes:

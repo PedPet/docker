@@ -6,7 +6,8 @@ services:
       context: ./front-end
       dockerfile: ./deployments/Dockerfile-dev
     volumes:
-      - ./front-end/:/app/
+      - ./front-end/:/app/:cached
+      - ./settings/:/settings/
     ports:
       - 3000:3000
     networks:
@@ -38,6 +39,7 @@ services:
       dockerfile: ./deployments/Dockerfile-dev
     volumes:
       - ./user/:/app/
+      - ./settings/:/settings/
     ports:
       - 8080:8080
     networks:
