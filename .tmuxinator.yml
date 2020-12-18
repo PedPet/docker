@@ -3,7 +3,6 @@
 name: PedPet
 root: ./
 
-
 # Note that the pre and post options have been deprecated and will be replaced by
 # project hooks.
 
@@ -43,25 +42,34 @@ on_project_stop: docker-compose down
 # attach: false
 
 windows:
-    - docker:
-    - front-end:
-         - cd front-end
-         - docker-compose logs -f front-end
-    - api gateway: 
-        layout: even-vertical
-        panes:
-            - pane1:
-               - cd api-gateway
-               - docker-compose exec api-gateway bash
-            - pane2: 
-                - cd api-gateway
-                - docker-compose logs -f api-gateway
-    - user: 
-        layout: even-vertical
-        panes:
-            - pane1:
-               - cd user
-               - docker-compose exec user bash
-            - pane2:
-                - cd user
-                - docker-compose logs -f user
+  - docker:
+  - front-end:
+      - cd front-end
+      - docker-compose logs -f front-end
+  - api gateway:
+      layout: even-vertical
+      panes:
+        - pane1:
+            - cd api-gateway
+            - docker-compose exec api-gateway bash
+        - pane2:
+            - cd api-gateway
+            - docker-compose logs -f api-gateway
+  - user:
+      layout: even-vertical
+      panes:
+        - pane1:
+            - cd user
+            - docker-compose exec user bash
+        - pane2:
+            - cd user
+            - docker-compose logs -f user
+  - breeder:
+      layout: even-vertical
+      panes:
+        - pane1:
+            - cd breeder
+            - docker-compose exec breeder bash
+        - pane2:
+            - cd breeder
+            - docker-compose logs -f breeder

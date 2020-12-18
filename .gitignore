@@ -4,3 +4,4 @@ user/
 *.code*
 proto/
 api-gateway/
+breeder/

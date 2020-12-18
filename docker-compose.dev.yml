@@ -33,6 +33,33 @@ services:
       - backend-services
       - frontend
 
+  breeder:
+    build:
+      context: ./breeder
+      dockerfile: ./deployments/Dockerfile-dev
+    volumes:
+      - ./breeder/:/app/
+    ports:
+      - 8001:8000
+    networks:
+      - backend-services
+      - breeder-db
+    environment:
+      - PORT=8080
+
+  breeder-db:
+    image: mysql:8.0
+    ports:
+      - 3008:3006
+    volumes:
+      - breeder-db:/var/lib/mysql
+    networks:
+      - breeder-db
+    environment:
+      - "MYSQL_ROOT_PASSWORD=Marthawinter1"
+      - "MYSQL_DATABASE=pedpet"
+      - "MYSQL_ROOT_HOST=%"
+
   user:
     build:
       context: ./user
@@ -62,9 +89,11 @@ services:
       - "MYSQL_ROOT_HOST=%"
 
 volumes:
+  breeder-db:
   user-db:
 
 networks:
   backend-services:
+  breeder-db:
   user-db:
   frontend:
